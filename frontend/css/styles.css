@@ -5,6 +5,8 @@
     --bg-primary: #121826;
     --bg-card: #1b2436;
     --bg-card-hover: #232d42;
+    --bg-btn-active: #f0f4f8;
+    --bg-btn-inactive: #0088ff1a;
     --accent-blue: #0088ff;
     --accent-green: #00e676;
     --accent-gold: #ffb300;
@@ -14,6 +16,7 @@
     --border-color: #2e3a52;
     --radius-sm: 6px;
     --radius-md: 12px;
+    --radius-lg: 100px;
     --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
@@ -36,7 +39,7 @@ body {
 
 .app-container {
     width: 100%;
-    max-width: 1100px;
+    max-width: 600px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -77,14 +80,7 @@ body {
    ========================================== */
 .game-layout {
     display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 20px;
-}
-
-@media (max-width: 850px) {
-    .game-layout {
-        grid-template-columns: 1fr;
-    }
+    grid-template-columns: 1fr;
 }
 
 /* ==========================================
@@ -93,7 +89,7 @@ body {
 .controls-section {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    margin-bottom: 20px;
 }
 
 /* Contenedor de dados */
@@ -141,6 +137,7 @@ body {
 .action-buttons {
     display: flex;
     gap: 12px;
+    margin: 10px 0 10px 0;
 }
 
 .btn {
@@ -257,29 +254,37 @@ body {
    6. PLANILLA DE YAZY (DERECHA)
    ========================================== */
 .scorecard-section {
+    display: flex;
+    justify-content: center;
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     padding: 20px;
     overflow-x: auto;
 }
-
 .scorecard-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9rem;
+    width: 80%;
+    border-collapse: separate;
+    border-spacing: 6px 6px;
+    font-size: 1.2rem;
 }
 
 .scorecard-table th, 
 .scorecard-table td {
     padding: 10px 12px;
-    text-align: left;
     border-bottom: 1px solid var(--border-color);
 }
 
 .scorecard-table th {
     color: var(--text-muted);
     font-weight: 600;
+    text-align: center;
+}
+
+.scorecard-table td {
+    font-size: 24px;
+    text-align: left;
+    height: 45px;
 }
 
 .scorecard-table tbody tr {
@@ -287,14 +292,11 @@ body {
     transition: background 0.15s;
 }
 
-.scorecard-table tbody tr:hover {
-    background: var(--bg-card-hover);
-}
-
 .scorecard-table .score {
     text-align: center;
     font-weight: bold;
-    width: 80px;
+    width: 50px;
+    height: 50px;
 }
 
 /* Casilla ya jugada/anotada */
@@ -321,8 +323,7 @@ body {
     color: var(--accent-gold);
 }
 
-.total-row td:last-child,
-.total-row td:nth-child(2) {
+.scorecard-table td:not(:first-child) {
     text-align: center;
 }
 
@@ -338,18 +339,21 @@ body {
     pointer-events: none; /* Evita clics mientras gira */
 }
 
+.score{
+    background-color: var(--bg-btn-inactive);
+}
+
 /* Celdas de puntuación interactivas */
 .scorecard-table .score {
     transition: all 0.2s;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-lg);
     border: 1px solid transparent;
 }
 
 /* Celda habilitada para el jugador en turno */
 .score.active-turn {
     cursor: pointer;
-    background-color: rgba(0, 136, 255, 0.1);
-    border-color: rgba(0, 136, 255, 0.3);
+    background-color: var(--bg-btn-active);
 }
 
 .score.active-turn:hover {

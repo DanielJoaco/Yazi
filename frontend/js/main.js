@@ -33,8 +33,8 @@ function initGame() {
     });
 
     // Listeners de las celdas de puntuación
-    document.querySelectorAll('.score').forEach(cell => {
-        cell.addEventListener('click', (e) => handleScoreClick(e.target));
+    document.querySelectorAll('.score').forEach(btn => {
+        btn.addEventListener('click', (e) => handleScoreClick(e.target));
     });
 
     btnRoll.addEventListener('click', handleRoll);
@@ -76,19 +76,19 @@ async function handleRoll() {
 // ==========================================
 // FIJACIÓN DE PUNTAJE Y CAMBIO DE TURNO
 // ==========================================
-function handleScoreClick(cellElement) {
-    // Ignorar si no es el turno, la celda ya se usó, o no se ha lanzado el dado aún
-    if (!cellElement.classList.contains('active-turn') || gameState.rollsLeft === 3) return;
+function handleScoreClick(buttonElement) {
+    // Ignorar si el botón no está activo para este turno o no se han lanzado dados
+    if (!buttonElement.classList.contains('active-turn') || gameState.rollsLeft === 3) return;
 
-    // Extraer categoría del TR padre (ej: data-category="threes")
-    const category = cellElement.parentElement.getAttribute('data-category');
+    // Obtener la categoría del tr padre usando .closest('tr')
+    const category = buttonElement.closest('tr').getAttribute('data-category');
     const finalScore = gameState.currentEvaluations[category] || 0;
 
-    // 1. Bloquear celda
+    // 1. Bloquear y fijar puntaje en el botón
     ui.lockScoreCell(category, gameState.turn, finalScore);
     gameState.blockedCategories[gameState.turn].push(category);
 
-    // 2. Calcular totales (Lógica básica en cliente)
+    // 2. Actualizar totales
     updateTotals(gameState.turn, finalScore);
 
     // 3. Cambiar de turno
@@ -102,7 +102,7 @@ function handleScoreClick(cellElement) {
     ui.clearPreviews();
     ui.updateTurnHeader(gameState.turn, gameState.rollsLeft);
     ui.updateInteractiveCells(gameState.turn);
-    btnRoll.disabled = false;
+    document.getElementById('btn-roll').disabled = false;
 }
 
 function updateTotals(player, addedScore) {

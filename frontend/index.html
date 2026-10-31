@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yazy - Turing Machine Edition</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="app-container">
@@ -41,79 +42,96 @@
                 <table class="scorecard-table">
                     <thead>
                         <tr>
-                            <th>Combinación</th>
-                            <th>Jugador 1</th>
-                            <th>Bot / J2</th>
+                            <th class="table-columns">Combinación</th>
+                            <th class="table-columns">J1</th>
+                            <th class="table-columns">J2/Bot</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- Sección Superior (Números) -->
                         <tr data-category="ones">
-                            <td class="category-name">1 ⚀ Unos</td>
-                            <td class="score p1-score" id="score-ones-p1">-</td>
-                            <td class="score p2-score" id="score-ones-p2">-</td>
+                            <td class="category-name"><i class="fa-solid fa-dice-one"></i></td>
+                            <td><button class="score p1-score" id="score-ones-p1">-</button></td>
+                            <td><button class="score p2-score" id="score-ones-p2">-</button></td>
                         </tr>
                         <tr data-category="twos">
-                            <td class="category-name">2 ⚁ Dos</td>
-                            <td class="score p1-score" id="score-twos-p1">-</td>
-                            <td class="score p2-score" id="score-twos-p2">-</td>
+                            <td class="category-name"><i class="fa-solid fa-dice-two"></i></td>
+                            <td><button class="score p1-score" id="score-twos-p1">-</button></td>
+                            <td><button class="score p2-score" id="score-twos-p2">-</button></td>
                         </tr>
                         <tr data-category="threes">
-                            <td class="category-name">3 ⚂ Tres</td>
-                            <td class="score p1-score" id="score-threes-p1">-</td>
-                            <td class="score p2-score" id="score-threes-p2">-</td>
+                            <td class="category-name"><i class="fa-solid fa-dice-three"></i></td>
+                            <td><button class="score p1-score" id="score-threes-p1">-</button></td>
+                            <td><button class="score p2-score" id="score-threes-p2">-</button></td>
                         </tr>
                         <tr data-category="fours">
-                            <td class="category-name">4 ⚃ Cuatros</td>
-                            <td class="score p1-score" id="score-fours-p1">-</td>
-                            <td class="score p2-score" id="score-fours-p2">-</td>
+                            <td class="category-name"><i class="fa-solid fa-dice-four"></i></td>
+                            <td><button class="score p1-score" id="score-fours-p1">-</button></td>
+                            <td><button class="score p2-score" id="score-fours-p2">-</button></td>
                         </tr>
                         <tr data-category="fives">
-                            <td class="category-name">5 ⚄ Cincos</td>
-                            <td class="score p1-score" id="score-fives-p1">-</td>
-                            <td class="score p2-score" id="score-fives-p2">-</td>
+                            <td class="category-name"><i class="fa-solid fa-dice-five"></i></td>
+                            <td><button class="score p1-score" id="score-fives-p1">-</button></td>
+                            <td><button class="score p2-score" id="score-fives-p2">-</button></td>
                         </tr>
                         <tr data-category="sixes">
-                            <td class="category-name">6 ⚅ Seis</td>
-                            <td class="score p1-score" id="score-sixes-p1">-</td>
-                            <td class="score p2-score" id="score-sixes-p2">-</td>
+                            <td class="category-name"><i class="fa-solid fa-dice-six"></i></td>
+                            <td><button class="score p1-score" id="score-sixes-p1">-</button></td>
+                            <td><button class="score p2-score" id="score-sixes-p2">-</button></td>
                         </tr>
 
                         <!-- Sección Inferior (Combinaciones Especiales) -->
                         <tr data-category="three_of_a_kind">
-                            <td class="category-name">Trío (3 iguales)</td>
-                            <td class="score p1-score" id="score-three_of_a_kind-p1">-</td>
-                            <td class="score p2-score" id="score-three_of_a_kind-p2">-</td>
+                            <td class="category-name">
+                                <i class="fa-solid fa-play fa-rotate-270"></i>
+                                <i class="fa-solid fa-play fa-rotate-270"></i>
+                                <i class="fa-solid fa-play fa-rotate-270"></i>
+                            </td>
+                            <td><button class="score p1-score" id="score-three_of_a_kind-p1">-</button></td>
+                            <td><button class="score p2-score" id="score-three_of_a_kind-p2">-</button></td>
                         </tr>
                         <tr data-category="four_of_a_kind">
-                            <td class="category-name">Póquer (4 iguales)</td>
-                            <td class="score p1-score" id="score-four_of_a_kind-p1">-</td>
-                            <td class="score p2-score" id="score-four_of_a_kind-p2">-</td>
+                            <td class="category-name">
+                                <i class="fa-solid fa-square"></i>
+                                <i class="fa-solid fa-square"></i>
+                                <i class="fa-solid fa-square"></i>
+                                <i class="fa-solid fa-square"></i>
+                            </td>
+                            <td><button class="score p1-score" id="score-four_of_a_kind-p1">-</button></td>
+                            <td><button class="score p2-score" id="score-four_of_a_kind-p2">-</button></td>
                         </tr>
                         <tr data-category="full_house">
-                            <td class="category-name">Full House</td>
-                            <td class="score p1-score" id="score-full_house-p1">-</td>
-                            <td class="score p2-score" id="score-full_house-p2">-</td>
-                        </tr>
-                        <tr data-category="small_straight">
-                            <td class="category-name">Escalera Menor</td>
-                            <td class="score p1-score" id="score-small_straight-p1">-</td>
-                            <td class="score p2-score" id="score-small_straight-p2">-</td>
+                            <td class="category-name">
+                                <i class="fa-solid fa-circle"></i>
+                                <i class="fa-solid fa-circle"></i>
+                                <i class="fa-solid fa-play fa-rotate-270"></i>
+                                <i class="fa-solid fa-play fa-rotate-270"></i>
+                                <i class="fa-solid fa-play fa-rotate-270"></i>
+                            </td>
+                            <td><button class="score p1-score" id="score-full_house-p1">-</button></td>
+                            <td><button class="score p2-score" id="score-full_house-p2">-</button></td>
                         </tr>
                         <tr data-category="large_straight">
-                            <td class="category-name">Escalera Mayor</td>
-                            <td class="score p1-score" id="score-large_straight-p1">-</td>
-                            <td class="score p2-score" id="score-large_straight-p2">-</td>
+                            <td class="category-name">
+                                <i class="fa-solid fa-circle"></i>
+                                <i class="fa-solid fa-play fa-rotate-270"></i>
+                                <i class="fa-solid fa-square"></i>
+                                <i class="fa-solid fa-diamond"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </td>
+                            <td><button class="score p1-score" id="score-large_straight-p1">-</button></td>
+                            <td><button class="score p2-score" id="score-large_straight-p2">-</button></td>
                         </tr>
                         <tr data-category="yazy">
-                            <td class="category-name">★ YAZY</td>
-                            <td class="score p1-score" id="score-yazy-p1">-</td>
-                            <td class="score p2-score" id="score-yazy-p2">-</td>
-                        </tr>
-                        <tr data-category="chance">
-                            <td class="category-name">Chance</td>
-                            <td class="score p1-score" id="score-chance-p1">-</td>
-                            <td class="score p2-score" id="score-chance-p2">-</td>
+                            <td class="category-name">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </td>
+                            <td><button class="score p1-score" id="score-yazy-p1">-</button></td>
+                            <td><button class="score p2-score" id="score-yazy-p2">-</button></td>
                         </tr>
                     </tbody>
                     <tfoot>
