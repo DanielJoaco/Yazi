@@ -1,0 +1,21 @@
+# Archivos de entorno virtual de Python
+venv/
+.venv/
+env/
+
+# Caché de ejecución de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos de configuración local e IDEs
+.vscode/
+.idea/
+*.swp
+
+# Archivos de sistema operativo
+.DS_Store
+Thumbs.db
+
+# Configuración local de Vercel
+.vercel/
