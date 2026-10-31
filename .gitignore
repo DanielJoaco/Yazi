@@ -19,3 +19,6 @@ Thumbs.db
 
 # Configuración local de Vercel
 .vercel/
+
+#Documentos
+.docs/
