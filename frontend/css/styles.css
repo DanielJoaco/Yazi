@@ -1,0 +1,367 @@
+/* ==========================================
+   1. VARIABLES Y CONFIGURACIÓN GLOBAL
+   ========================================== */
+:root {
+    --bg-primary: #121826;
+    --bg-card: #1b2436;
+    --bg-card-hover: #232d42;
+    --accent-blue: #0088ff;
+    --accent-green: #00e676;
+    --accent-gold: #ffb300;
+    --accent-red: #ff5252;
+    --text-main: #f0f4f8;
+    --text-muted: #94a3b8;
+    --border-color: #2e3a52;
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    font-family: var(--font-family);
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ==========================================
+   2. CABECERA Y TURNOS
+   ========================================== */
+.game-header {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.game-header h1 {
+    font-size: 1.5rem;
+    color: var(--accent-blue);
+    letter-spacing: 1px;
+}
+
+.turn-indicator {
+    display: flex;
+    gap: 20px;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.turn-indicator strong {
+    color: var(--accent-gold);
+}
+
+/* ==========================================
+   3. LAYOUT PRINCIPAL (DOS COLUMNAS)
+   ========================================== */
+.game-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 20px;
+}
+
+@media (max-width: 850px) {
+    .game-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================
+   4. CONTROLES Y DADOS (IZQUIERDA)
+   ========================================== */
+.controls-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Contenedor de dados */
+.dice-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 20px;
+}
+
+.die {
+    width: 60px;
+    height: 60px;
+    background: #ffffff;
+    color: #121826;
+    border: 3px solid transparent;
+    border-radius: var(--radius-md);
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.die:hover {
+    transform: translateY(-2px);
+}
+
+/* Estado de dado bloqueado/mantenido */
+.die.locked {
+    background: var(--accent-blue);
+    color: #ffffff;
+    border-color: #ffffff;
+    box-shadow: 0 0 12px rgba(0, 136, 255, 0.6);
+}
+
+/* Botones de acción */
+.action-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.btn {
+    flex: 1;
+    padding: 14px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn.primary {
+    background: var(--accent-green);
+    color: #000;
+}
+
+.btn.primary:hover {
+    background: #00c853;
+}
+
+.btn.primary:disabled {
+    background: var(--border-color);
+    color: var(--text-muted);
+    cursor: not-allowed;
+}
+
+.btn.secondary {
+    background: var(--border-color);
+    color: var(--text-main);
+}
+
+.btn.secondary:hover {
+    background: #3a4966;
+}
+
+/* ==========================================
+   5. MONITOR DE LA MÁQUINA DE TURING
+   ========================================== */
+.turing-monitor {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.turing-monitor h3 {
+    font-size: 1.1rem;
+    color: var(--accent-gold);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+.tape-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.tape-container label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Renderizado gráfico de la cinta */
+.tape {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    background: #0d111a;
+    padding: 8px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    min-height: 42px;
+}
+
+.tape-cell {
+    min-width: 28px;
+    height: 28px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: monospace;
+    font-size: 0.9rem;
+    color: var(--text-main);
+}
+
+/* Cabezal de lectura/escritura de la máquina */
+.tape-cell.head {
+    background: var(--accent-blue);
+    color: #fff;
+    font-weight: bold;
+    border-color: #fff;
+    box-shadow: 0 0 6px var(--accent-blue);
+}
+
+.state-info {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.state-info span {
+    color: var(--accent-green);
+    font-weight: bold;
+}
+
+/* ==========================================
+   6. PLANILLA DE YAZY (DERECHA)
+   ========================================== */
+.scorecard-section {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    overflow-x: auto;
+}
+
+.scorecard-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.scorecard-table th, 
+.scorecard-table td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.scorecard-table th {
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.scorecard-table tbody tr {
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.scorecard-table tbody tr:hover {
+    background: var(--bg-card-hover);
+}
+
+.scorecard-table .score {
+    text-align: center;
+    font-weight: bold;
+    width: 80px;
+}
+
+/* Casilla ya jugada/anotada */
+.score.used {
+    color: var(--text-muted);
+    cursor: not-allowed;
+}
+
+/* Pre-vista de puntaje posible al pasar el cursor */
+.score.preview {
+    color: var(--accent-green);
+    opacity: 0.7;
+}
+
+/* Fila de Totales */
+.total-row {
+    font-weight: bold;
+    font-size: 1rem;
+    background: #141b28;
+}
+
+.total-row td {
+    border-bottom: none;
+    color: var(--accent-gold);
+}
+
+.total-row td:last-child,
+.total-row td:nth-child(2) {
+    text-align: center;
+}
+
+/* Animación de giro de dados */
+@keyframes rollAnimation {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.1); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+.die.rolling {
+    animation: rollAnimation 0.4s ease-in-out;
+    pointer-events: none; /* Evita clics mientras gira */
+}
+
+/* Celdas de puntuación interactivas */
+.scorecard-table .score {
+    transition: all 0.2s;
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+}
+
+/* Celda habilitada para el jugador en turno */
+.score.active-turn {
+    cursor: pointer;
+    background-color: rgba(0, 136, 255, 0.1);
+    border-color: rgba(0, 136, 255, 0.3);
+}
+
+.score.active-turn:hover {
+    background-color: var(--accent-blue);
+    color: #fff;
+}
+
+/* Celda bloqueada/ya jugada */
+.score.used {
+    background-color: var(--bg-card-hover);
+    color: var(--text-muted);
+    cursor: not-allowed;
+    border-color: var(--border-color);
+    opacity: 0.6;
+}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yazy - Turing Machine Edition</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        
+        <!-- CABECERA Y CONTROL DE TURNOS -->
+        <header class="game-header">
+            <h1>YAZY</h1>
+            <div class="turn-indicator">
+                <span>Turno actual: <strong id="current-turn">Jugador 1</strong></span>
+                <span>Tiros restantes: <strong id="rolls-left">3</strong></span>
+            </div>
+        </header>
+
+        <main class="game-layout">
+            
+            <!-- SECCIÓN IZQUIERDA: DADOS Y CONTROLES -->
+            <section class="controls-section">
+                <!-- Cajones estáticos para los 5 dados -->
+                <div class="dice-container">
+                    <button class="die" data-index="0" id="die-0">?</button>
+                    <button class="die" data-index="1" id="die-1">?</button>
+                    <button class="die" data-index="2" id="die-2">?</button>
+                    <button class="die" data-index="3" id="die-3">?</button>
+                    <button class="die" data-index="4" id="die-4">?</button>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="btn-roll" class="btn primary">Lanzar Dados</button>
+                </div>
+            </section>
+
+            <!-- SECCIÓN DERECHA: PLANILLA DE PUNTUACIÓN (YAZY BOARD) -->
+            <section class="scorecard-section">
+                <table class="scorecard-table">
+                    <thead>
+                        <tr>
+                            <th>Combinación</th>
+                            <th>Jugador 1</th>
+                            <th>Bot / J2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Sección Superior (Números) -->
+                        <tr data-category="ones">
+                            <td class="category-name">1 ⚀ Unos</td>
+                            <td class="score p1-score" id="score-ones-p1">-</td>
+                            <td class="score p2-score" id="score-ones-p2">-</td>
+                        </tr>
+                        <tr data-category="twos">
+                            <td class="category-name">2 ⚁ Dos</td>
+                            <td class="score p1-score" id="score-twos-p1">-</td>
+                            <td class="score p2-score" id="score-twos-p2">-</td>
+                        </tr>
+                        <tr data-category="threes">
+                            <td class="category-name">3 ⚂ Tres</td>
+                            <td class="score p1-score" id="score-threes-p1">-</td>
+                            <td class="score p2-score" id="score-threes-p2">-</td>
+                        </tr>
+                        <tr data-category="fours">
+                            <td class="category-name">4 ⚃ Cuatros</td>
+                            <td class="score p1-score" id="score-fours-p1">-</td>
+                            <td class="score p2-score" id="score-fours-p2">-</td>
+                        </tr>
+                        <tr data-category="fives">
+                            <td class="category-name">5 ⚄ Cincos</td>
+                            <td class="score p1-score" id="score-fives-p1">-</td>
+                            <td class="score p2-score" id="score-fives-p2">-</td>
+                        </tr>
+                        <tr data-category="sixes">
+                            <td class="category-name">6 ⚅ Seis</td>
+                            <td class="score p1-score" id="score-sixes-p1">-</td>
+                            <td class="score p2-score" id="score-sixes-p2">-</td>
+                        </tr>
+
+                        <!-- Sección Inferior (Combinaciones Especiales) -->
+                        <tr data-category="three_of_a_kind">
+                            <td class="category-name">Trío (3 iguales)</td>
+                            <td class="score p1-score" id="score-three_of_a_kind-p1">-</td>
+                            <td class="score p2-score" id="score-three_of_a_kind-p2">-</td>
+                        </tr>
+                        <tr data-category="four_of_a_kind">
+                            <td class="category-name">Póquer (4 iguales)</td>
+                            <td class="score p1-score" id="score-four_of_a_kind-p1">-</td>
+                            <td class="score p2-score" id="score-four_of_a_kind-p2">-</td>
+                        </tr>
+                        <tr data-category="full_house">
+                            <td class="category-name">Full House</td>
+                            <td class="score p1-score" id="score-full_house-p1">-</td>
+                            <td class="score p2-score" id="score-full_house-p2">-</td>
+                        </tr>
+                        <tr data-category="small_straight">
+                            <td class="category-name">Escalera Menor</td>
+                            <td class="score p1-score" id="score-small_straight-p1">-</td>
+                            <td class="score p2-score" id="score-small_straight-p2">-</td>
+                        </tr>
+                        <tr data-category="large_straight">
+                            <td class="category-name">Escalera Mayor</td>
+                            <td class="score p1-score" id="score-large_straight-p1">-</td>
+                            <td class="score p2-score" id="score-large_straight-p2">-</td>
+                        </tr>
+                        <tr data-category="yazy">
+                            <td class="category-name">★ YAZY</td>
+                            <td class="score p1-score" id="score-yazy-p1">-</td>
+                            <td class="score p2-score" id="score-yazy-p2">-</td>
+                        </tr>
+                        <tr data-category="chance">
+                            <td class="category-name">Chance</td>
+                            <td class="score p1-score" id="score-chance-p1">-</td>
+                            <td class="score p2-score" id="score-chance-p2">-</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="total-row">
+                            <td>TOTAL</td>
+                            <td id="total-p1">0</td>
+                            <td id="total-p2">0</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </section>
+
+            <div class="action-buttons">
+                <button id="btn-reset" class="btn secondary">Reiniciar Juego</button>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Script principal como módulo ES6 -->
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
