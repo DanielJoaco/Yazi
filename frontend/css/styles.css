@@ -2,36 +2,81 @@
    1. VARIABLES Y CONFIGURACIÓN GLOBAL
    ========================================== */
 :root {
-    --bg-primary: #121826;
-    --bg-card: #1b2436;
-    --bg-card-hover: #232d42;
-    --bg-btn-active: #f0f4f8;
-    --bg-btn-inactive: #0088ff1a;
-    --accent-blue: #0088ff;
-    --accent-green: #00e676;
-    --accent-gold: #ffb300;
-    --accent-red: #ff5252;
-    --text-main: #f0f4f8;
-    --text-muted: #94a3b8;
-    --border-color: #2e3a52;
-    --radius-sm: 6px;
-    --radius-md: 12px;
-    --radius-lg: 100px;
-    --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    /* Paleta de Colores - Fondos y Bordes */
+    --color-bg-main: #22223B;
+    --color-bg-card: #F9C22E;
+    --color-bg-card-hover: #232d42;
+    --color-border: #22223B;
+
+    /* Paleta de Colores - Botones y Estados */
+    --color-btn-active: #ffffffc4;
+    --color-btn-inactive: #7171ad9a;
+    --color-btn-accept: #269c32;
+    --color-btn-accept-hover: #3ac34a;
+    --color-btn-reject: #36364f;
+    --color-btn-reject-hover: #515173;
+    --color-btn-blocked: #7171AD;
+
+    /* Paleta de Colores - Texto */
+    --color-text-main: #EF271B;
+    --color-text-title: #7171AD;
+    --color-text-muted: #32533D;
+    --color-text-white: #ffffffc4;
+    --color-text-disabled: #8d8dc1d9;
+
+    /* Tipografía */
+    --font-family: "VT323", monospace, system-ui, -apple-system, sans-serif;
+    --text-base: 1rem;       /* 16px */
+    --text-md: 1.2rem;       /* 19.2px */
+    --text-lg: 1.3rem;       /* 20.8px */
+    --text-xl: 1.5rem;       /* 24px */
+    --text-xxl: 2rem;        /* 32px */
+
+    /* Espaciados y Márgenes (basados en rem) */
+    --space-xs: 0.375rem;    /* 6px */
+    --space-sm: 0.625rem;    /* 10px */
+    --space-md: 0.75rem;     /* 12px */
+    --space-lg: 1.25rem;     /* 20px */
+    --space-xl: 1.5rem;      /* 24px */
+
+    /* Dimensiones Estructurales */
+    --max-width-app: 37.5rem;    /* 600px */
+    --size-die: 3.75rem;         /* 60px */
+    --size-score-btn: 3.125rem;  /* 50px */
+    --height-table-row: 2.8rem;  /* 45px */
+
+    /* Bordes y Sombras */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.75rem;
+    --radius-round: 6.25rem;
+    --shadow-base: 0 0.25rem 0.375rem rgba(0,0,0,0.3);
+    
+    /* Animaciones */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.2s ease;
 }
 
+/* ==========================================
+   2. RESET Y BASE (RESPONSIVE MASTER)
+   ========================================== */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+html {
+    /* La base por defecto es 16px. Para hacer el diseño responsive en celulares,
+       puedes cambiar esto con media queries (ej: @media (max-width: 400px) { html { font-size: 14px; } }) */
+    font-size: 16px; 
+}
+
 body {
-    background-color: var(--bg-primary);
-    color: var(--text-main);
+    background-color: var(--color-bg-main);
+    color: var(--color-text-main);
     font-family: var(--font-family);
     min-height: 100vh;
-    padding: 20px;
+    padding: var(--space-lg);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,333 +84,244 @@ body {
 
 .app-container {
     width: 100%;
-    max-width: 600px;
+    max-width: var(--max-width-app);
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: var(--space-lg);
 }
 
 /* ==========================================
-   2. CABECERA Y TURNOS
+   3. CABECERA E INDICADORES
    ========================================== */
 .game-header {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    padding: 16px 24px;
+    padding: var(--space-lg) var(--space-xl);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .game-header h1 {
-    font-size: 1.5rem;
-    color: var(--accent-blue);
-    letter-spacing: 1px;
+    font-size: var(--text-xxl);
+    color: var(--color-text-title);
+    letter-spacing: 0.06rem;
 }
 
 .turn-indicator {
     display: flex;
-    gap: 20px;
-    font-size: 0.95rem;
-    color: var(--text-muted);
+    gap: var(--space-lg);
+    font-size: var(--text-md);
+    color: var(--color-text-muted);
 }
 
 .turn-indicator strong {
-    color: var(--accent-gold);
+    color: var(--color-text-main);
 }
 
 /* ==========================================
-   3. LAYOUT PRINCIPAL (DOS COLUMNAS)
-   ========================================== */
-.game-layout {
-    display: grid;
-    grid-template-columns: 1fr;
-}
-
-/* ==========================================
-   4. CONTROLES Y DADOS (IZQUIERDA)
+   4. SECCIÓN DADOS Y CONTROLES
    ========================================== */
 .controls-section {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-bottom: var(--space-lg);
 }
 
-/* Contenedor de dados */
 .dice-container {
     display: flex;
     justify-content: space-between;
-    gap: 10px;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
+    gap: var(--space-sm);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    padding: 20px;
+    padding: var(--space-lg);
 }
 
 .die {
-    width: 60px;
-    height: 60px;
-    background: #ffffff;
-    color: #121826;
-    border: 3px solid transparent;
+    width: var(--size-die);
+    height: var(--size-die);
+    color: var(--color-text-muted);
+    background: var(--color-btn-active);
+    border: 0.18rem solid transparent;
     border-radius: var(--radius-md);
-    font-size: 1.8rem;
+    font-size: var(--text-xxl);
+    font-family: inherit;
     font-weight: bold;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: transform var(--transition-normal);
     display: flex;
     justify-content: center;
     align-items: center;
     user-select: none;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    box-shadow: var(--shadow-base);
 }
 
 .die:hover {
-    transform: translateY(-2px);
+    transform: translateY(-0.125rem);
 }
 
-/* Estado de dado bloqueado/mantenido */
 .die.locked {
-    background: var(--accent-blue);
-    color: #ffffff;
-    border-color: #ffffff;
-    box-shadow: 0 0 12px rgba(0, 136, 255, 0.6);
+    background: var(--color-btn-blocked);
+    color: var(--color-text-white);
+    border-color: var(--color-text-white);
+    box-shadow: 0 0 0.75rem var(--color-btn-blocked);
 }
 
-/* Botones de acción */
+/* ==========================================
+   5. BOTONES GLOBALES
+   ========================================== */
 .action-buttons {
     display: flex;
-    gap: 12px;
-    margin: 10px 0 10px 0;
+    gap: var(--space-md);
+    margin: var(--space-sm) 0;
 }
 
 .btn {
     flex: 1;
-    padding: 14px;
+    padding: var(--space-md);
     border: none;
     border-radius: var(--radius-sm);
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background var(--transition-normal);
+    font-family: inherit;
+    font-size: var(--text-lg);
 }
 
 .btn.primary {
-    background: var(--accent-green);
-    color: #000;
+    background: var(--color-btn-accept);
+    color: var(--color-text-white);
 }
 
 .btn.primary:hover {
-    background: #00c853;
+    background: var(--color-btn-accept-hover);
 }
 
 .btn.primary:disabled {
-    background: var(--border-color);
-    color: var(--text-muted);
+    background: var(--color-btn-inactive);
+    color: var(--color-text-disabled);
     cursor: not-allowed;
 }
 
 .btn.secondary {
-    background: var(--border-color);
-    color: var(--text-main);
+    background: var(--color-btn-reject);
+    color: var(--color-text-main);
 }
 
 .btn.secondary:hover {
-    background: #3a4966;
+    background: var(--color-btn-reject-hover);
 }
 
 /* ==========================================
-   5. MONITOR DE LA MÁQUINA DE TURING
-   ========================================== */
-.turing-monitor {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.turing-monitor h3 {
-    font-size: 1.1rem;
-    color: var(--accent-gold);
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 8px;
-}
-
-.tape-container {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.tape-container label {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-}
-
-/* Renderizado gráfico de la cinta */
-.tape {
-    display: flex;
-    gap: 4px;
-    overflow-x: auto;
-    background: #0d111a;
-    padding: 8px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border-color);
-    min-height: 42px;
-}
-
-.tape-cell {
-    min-width: 28px;
-    height: 28px;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: monospace;
-    font-size: 0.9rem;
-    color: var(--text-main);
-}
-
-/* Cabezal de lectura/escritura de la máquina */
-.tape-cell.head {
-    background: var(--accent-blue);
-    color: #fff;
-    font-weight: bold;
-    border-color: #fff;
-    box-shadow: 0 0 6px var(--accent-blue);
-}
-
-.state-info {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-}
-
-.state-info span {
-    color: var(--accent-green);
-    font-weight: bold;
-}
-
-/* ==========================================
-   6. PLANILLA DE YAZY (DERECHA)
+   6. PLANILLA DE PUNTUACIÓN (TABLA)
    ========================================== */
 .scorecard-section {
     display: flex;
     justify-content: center;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    padding: 20px;
+    padding: var(--space-lg);
     overflow-x: auto;
 }
+
 .scorecard-table {
     width: 80%;
     border-collapse: separate;
-    border-spacing: 6px 6px;
-    font-size: 1.2rem;
+    border-spacing: var(--space-xs) var(--space-xs);
+    font-size: var(--text-xl);
 }
 
 .scorecard-table th, 
 .scorecard-table td {
-    padding: 10px 12px;
-    border-bottom: 1px solid var(--border-color);
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--color-border);
 }
 
 .scorecard-table th {
-    color: var(--text-muted);
+    color: var(--color-text-muted);
     font-weight: 600;
     text-align: center;
 }
 
 .scorecard-table td {
-    font-size: 24px;
+    font-size: var(--text-xxl);
     text-align: left;
-    height: 45px;
-}
-
-.scorecard-table tbody tr {
-    cursor: pointer;
-    transition: background 0.15s;
-}
-
-.scorecard-table .score {
-    text-align: center;
-    font-weight: bold;
-    width: 50px;
-    height: 50px;
-}
-
-/* Casilla ya jugada/anotada */
-.score.used {
-    color: var(--text-muted);
-    cursor: not-allowed;
-}
-
-/* Pre-vista de puntaje posible al pasar el cursor */
-.score.preview {
-    color: var(--accent-green);
-    opacity: 0.7;
-}
-
-/* Fila de Totales */
-.total-row {
-    font-weight: bold;
-    font-size: 1rem;
-    background: #141b28;
-}
-
-.total-row td {
-    border-bottom: none;
-    color: var(--accent-gold);
+    height: var(--height-table-row);
 }
 
 .scorecard-table td:not(:first-child) {
     text-align: center;
 }
 
-/* Animación de giro de dados */
+.scorecard-table tbody tr {
+    transition: background var(--transition-fast);
+}
+
+/* Fila de Totales */
+.puntaje-row {
+    font-weight: bold;
+    font-size: var(--text-base);
+}
+
+.puntaje-row td {
+    border-bottom: none;
+    color: var(--color-text-main);
+}
+
+/* ==========================================
+   7. BOTONES INTERACTIVOS DE CELDA (SCORES)
+   ========================================== */
+.score {
+    width: var(--size-score-btn);
+    height: var(--size-score-btn);
+    background-color: var(--color-btn-inactive);
+    font-family: inherit;
+    font-size: var(--text-md);
+    font-weight: bold;
+    text-align: center;
+    border-radius: var(--radius-round);
+    border: 1px solid transparent;
+    transition: all var(--transition-normal);
+    color: inherit;
+}
+
+/* Estados de los botones de puntuación */
+.score.active-turn {
+    cursor: pointer;
+    background-color: var(--color-btn-active);
+}
+
+.score.active-turn:hover {
+    background-color: var(--color-text-title);
+    color: var(--color-text-white);
+}
+
+.score.used {
+    background-color: var(--color-bg-card-hover);
+    color: var(--color-text-muted);
+    cursor: not-allowed;
+    border-color: var(--color-border);
+    opacity: 0.6;
+}
+
+.score.preview {
+    color: var(--color-btn-accept);
+    opacity: 0.7;
+}
+
+/* ==========================================
+   8. ANIMACIONES
+   ========================================== */
 @keyframes rollAnimation {
-    0% { transform: rotate(0deg) scale(1); }
-    50% { transform: rotate(180deg) scale(1.1); }
+    0%   { transform: rotate(0deg) scale(1); }
+    50%  { transform: rotate(180deg) scale(1.1); }
     100% { transform: rotate(360deg) scale(1); }
 }
 
 .die.rolling {
     animation: rollAnimation 0.4s ease-in-out;
-    pointer-events: none; /* Evita clics mientras gira */
-}
-
-.score{
-    background-color: var(--bg-btn-inactive);
-}
-
-/* Celdas de puntuación interactivas */
-.scorecard-table .score {
-    transition: all 0.2s;
-    border-radius: var(--radius-lg);
-    border: 1px solid transparent;
-}
-
-/* Celda habilitada para el jugador en turno */
-.score.active-turn {
-    cursor: pointer;
-    background-color: var(--bg-btn-active);
-}
-
-.score.active-turn:hover {
-    background-color: var(--accent-blue);
-    color: #fff;
-}
-
-/* Celda bloqueada/ya jugada */
-.score.used {
-    background-color: var(--bg-card-hover);
-    color: var(--text-muted);
-    cursor: not-allowed;
-    border-color: var(--border-color);
-    opacity: 0.6;
+    pointer-events: none; /* Evita clics repetidos mientras gira */
 }
