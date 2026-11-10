@@ -1,0 +1,19 @@
+Recomendaciones para una futura iteracion
+
+1. Separar el arnes de pruebas de turing_engine.py. La ultima celda del notebook
+   construye la maquina, imprime resultados y ejecuta asserts; conviene moverla
+   a tests/test_turing_engine.py para que importar el modulo no ejecute pruebas.
+
+2. Revisar la interfaz entre api/index.py y calculate_available_scores. El motor
+   recibe una cadena con formato "d,d,d,d,d#categorias", mientras que la API
+   actualmente le pasa payload.dice como lista y payload.blocked_categories como
+   segundo argumento. Conviene adaptar la API o crear un adaptador explicito.
+
+3. Fijar en requirements.txt la version de automata-lib usada por el notebook
+   (9.2.0), para evitar cambios de comportamiento entre instalaciones.
+
+4. Agregar pruebas automatizadas para entradas invalidas, alias de categorias y
+   las 252 combinaciones de dados que ya se validan en el notebook.
+
+Estas recomendaciones quedan documentadas solamente; la maquina y su logica no
+fueron modificadas.

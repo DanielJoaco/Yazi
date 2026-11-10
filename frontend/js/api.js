@@ -13,7 +13,10 @@ export async function evaluateRoll(dice, blockedCategories) {
             })
         });
 
-        if (!response.ok) throw new Error('Error al conectar con la API del autómata');
+        if (!response.ok) {
+            const errorBody = await response.json().catch(() => null);
+            throw new Error(errorBody?.detail || 'Error al conectar con la API del autómata');
+        }
         return await response.json();
     } catch (error) {
         console.error("API Error:", error);

@@ -37,7 +37,7 @@ MNTM_ENGINE: MNTM = build_yazy_mntm()
 class EvaluateRollRequest(BaseModel):
     """Estructura de los datos que envía el frontend."""
     dice: List[int] = Field(..., min_items=5, max_items=5, description="Lista con los 5 dados (1 al 6)")
-    blocked_categories: Optional[List[str]] = Field(default=[], description="Casillas jugadas que se omiten del cálculo")
+    blocked_categories: Optional[List[str]] = Field(default=None, description="Casillas jugadas que se omiten del cálculo")
 
 class EvaluateRollResponse(BaseModel):
     """Estructura de la respuesta que devuelve la API."""
@@ -67,15 +67,18 @@ def evaluate_roll(payload: EvaluateRollRequest):
     if any(d < 1 or d > 6 for d in payload.dice):
         raise HTTPException(status_code=400, detail="Los dados deben estar comprendidos entre 1 y 6.")
 
-    # 2. Formatear la cadena de entrada y verificar aceptación formal en la MNTM
-    dice_str = ",".join(map(str, payload.dice)) + "#"
-    is_accepted = MNTM_ENGINE.accepts_input(dice_str) if MNTM_ENGINE.validate() else True
+    # 2. Formatear la entrada que espera el motor: dados#casillas_bloqueadas
+    blocked_categories = payload.blocked_categories or []
+    input_string = ",".join(map(str, payload.dice)) + "#" + ",".join(blocked_categories)
 
     # 3. Calcular los puntajes únicamente para las casillas libres
-    scores = calculate_available_scores(payload.dice, payload.blocked_categories)
+    try:
+        scores = calculate_available_scores(input_string, machine=MNTM_ENGINE)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
     # 4. Retornar la respuesta con el éxito del autómata y los puntajes
     return EvaluateRollResponse(
-        success=is_accepted,
+        success=True,
         scores=scores
     )
