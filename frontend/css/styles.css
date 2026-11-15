@@ -340,19 +340,30 @@ body {
     }
 
     .controls-section {
-        justify-content: space-between;
+        justify-content: flex-start;
+    }
+
+    /* Separa el grupo de botones para ubicar cada uno individualmente */
+    .action-buttons {
+        display: contents;
+    }
+
+    /* Lanzar Dados queda justo debajo de los dados */
+    #btn-roll {
+        order: 0;
+        margin-top: var(--space-sm);
+    }
+
+    /* Reiniciar Juego se pega a la base de la columna */
+    #btn-reset {
+        order: 1;
+        margin-top: auto;
     }
 
     .die {
         width: 2.75rem; /* 44px: 5 dados caben en la columna izquierda */
         height: 2.75rem;
         font-size: var(--text-xl);
-    }
-
-    .action-buttons {
-        flex-direction: column;
-        margin-top: var(--space-md);
-        gap: var(--space-sm);
     }
 
     .scorecard-left,
