@@ -1,6 +1,6 @@
-# Yazy Turing Machine
+# Yahtzee Turing Machine
 
-Aplicacion web local para calcular los puntajes de Yazy usando una Maquina de Turing Multicinta.
+Aplicacion web local para calcular los puntajes de Yahtzee usando una Maquina de Turing Multicinta.
 
 ## Requisitos
 

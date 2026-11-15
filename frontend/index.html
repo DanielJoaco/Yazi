@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YATZY - Turing Machine Edition</title>
+    <title>YAHTZEE - Turing Machine Edition</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%B2%3C/text%3E%3C/svg%3E">    
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
@@ -16,7 +16,7 @@
         
         <!-- CABECERA Y CONTROL DE TURNOS -->
         <header class="game-header">
-            <h1>YATZY</h1>
+            <h1>YAHTZEE</h1>
             <div class="turn-indicator">
                 <span>Turno actual: <strong id="current-turn">Jugador 1</strong></span>
                 <span>Tiros restantes: <strong id="rolls-left">3</strong></span>
@@ -38,11 +38,12 @@
 
                 <div class="action-buttons">
                     <button id="btn-roll" class="btn primary">Lanzar Dados</button>
+                    <button id="btn-reset" class="btn secondary">Reiniciar Juego</button>
                 </div>
             </section>
 
-            <!-- SECCIÓN DERECHA: PLANILLA DE PUNTUACIÓN (YAZY BOARD) -->
-            <section class="scorecard-section">
+            <!-- TABLA MITAD 1: NÚMEROS (ONES A FIVES) -->
+            <section class="scorecard-section scorecard-left">
                 <table class="scorecard-table">
                     <thead>
                         <tr>
@@ -52,7 +53,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Sección Superior (Números) -->
                         <tr data-category="ones">
                             <td class="category-name"><i class="fa-solid fa-dice-one"></i></td>
                             <td><button class="score p1-score" id="score-ones-p1">-</button></td>
@@ -78,6 +78,21 @@
                             <td><button class="score p1-score" id="score-fives-p1">-</button></td>
                             <td><button class="score p2-score" id="score-fives-p2">-</button></td>
                         </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- TABLA MITAD 2: ESPECIALES (SIXES A YAZY) + TOTALES -->
+            <section class="scorecard-section scorecard-right">
+                <table class="scorecard-table">
+                    <thead>
+                        <tr>
+                            <th class="table-columns">Combinación</th>
+                            <th class="table-columns">J1</th>
+                            <th class="table-columns">J2/Bot</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <tr data-category="sixes">
                             <td class="category-name"><i class="fa-solid fa-dice-six"></i></td>
                             <td><button class="score p1-score" id="score-sixes-p1">-</button></td>
@@ -147,10 +162,6 @@
                     </tfoot>
                 </table>
             </section>
-
-            <div class="action-buttons">
-                <button id="btn-reset" class="btn secondary">Reiniciar Juego</button>
-            </div>
 
         </main>
     </div>
