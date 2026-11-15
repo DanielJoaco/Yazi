@@ -214,14 +214,31 @@ body {
 /* ==========================================
    6. PLANILLA DE PUNTUACIÓN (TABLAS)
    ========================================== */
-.scorecard-section {
+
+/* En móvil: el wrapper es la única tarjeta, las secciones no se ven divididas */
+.scorecard-wrapper {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     background: var(--color-bg-card);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     padding: var(--space-sm) var(--space-md);
     overflow-x: auto;
+}
+
+.scorecard-section {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 0;
+    overflow-x: visible;
+}
+
+/* Encabezado repetido de la segunda mitad oculto en móvil */
+.scorecard-right .scorecard-table thead {
+    display: none;
 }
 
 .scorecard-table {
@@ -334,9 +351,32 @@ body {
 
     .game-layout {
         display: grid;
-        grid-template-columns: 17.5rem 1fr 1fr; /* dados | tabla 1 | tabla 2 */
+        grid-template-columns: 17.5rem 1fr; /* dados | planilla dividida */
         align-items: stretch;
         gap: var(--space-md);
+    }
+
+    /* En escritorio: cada mitad es su propia tarjeta */
+    .scorecard-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-md);
+        background: none;
+        border: none;
+        border-radius: 0;
+        padding: 0;
+        overflow-x: visible;
+    }
+
+    .scorecard-section {
+        background: var(--color-bg-card);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        padding: var(--space-sm) var(--space-md);
+    }
+
+    .scorecard-right .scorecard-table thead {
+        display: table-header-group;
     }
 
     .controls-section {
