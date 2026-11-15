@@ -2,6 +2,14 @@
 API REST que recibe los dados y las casillas bloqueadas, e invoca al autómata formal.
 """
 
+import sys
+from pathlib import Path
+
+# Permitir la importación de `backend` en el entorno serverless de Vercel
+ROOT = str(Path(__file__).resolve().parent.parent)
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
