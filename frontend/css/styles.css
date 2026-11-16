@@ -243,9 +243,19 @@ body {
 
 .scorecard-table {
     width: 100%;
+    /* Columnas de ancho fijo: ambas mitades quedan idénticas y alineadas */
+    table-layout: fixed;
     border-collapse: separate;
     border-spacing: var(--space-xs) var(--space-xs);
     font-size: var(--text-xl);
+}
+
+.col-category {
+    width: 44%;
+}
+
+.col-score {
+    width: 28%;
 }
 
 .scorecard-table th, 
